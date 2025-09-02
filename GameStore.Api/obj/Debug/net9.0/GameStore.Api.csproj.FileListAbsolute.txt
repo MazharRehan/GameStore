@@ -25,3 +25,4 @@ C:\Users\mazhar.rehan\source\repos\GameStore\GameStore.Api\obj\Debug\net9.0\refi
 C:\Users\mazhar.rehan\source\repos\GameStore\GameStore.Api\obj\Debug\net9.0\GameStore.Api.pdb
 C:\Users\mazhar.rehan\source\repos\GameStore\GameStore.Api\obj\Debug\net9.0\GameStore.Api.genruntimeconfig.cache
 C:\Users\mazhar.rehan\source\repos\GameStore\GameStore.Api\obj\Debug\net9.0\ref\GameStore.Api.dll
+C:\Users\mazhar.rehan\source\repos\GameStore\GameStore.Api\obj\Debug\net9.0\GameStore.Api.sourcelink.json
