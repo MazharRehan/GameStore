@@ -38,14 +38,15 @@ public static class GamesEndpoints
         new DateOnly(2015, 5, 19))
     ];
 
-    public static WebApplication MapGamesEndpoints(this WebApplication app)
+    public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
     {
+        var group = app.MapGroup("games");
 
         // GET /games
-        app.MapGet("games", () => games); // mininal api
+        group.MapGet("/", () => games); // mininal api
 
         // GET /games/1  --> get games by id
-        app.MapGet("games/{id}", (int id) =>
+        group.MapGet("/{id}", (int id) =>
         {
             GameDto? game = games.Find(game => game.Id == id);
 
@@ -54,8 +55,13 @@ public static class GamesEndpoints
         .WithName(GetGameEndpointName);
 
         // POST /games
-        app.MapPost("games", (CreateGameDto newGame) =>
+        group.MapPost("/", (CreateGameDto newGame) =>
         {
+            if (string.IsNullOrEmpty(newGame.Name))
+            {
+                return Results.BadRequest("Name is required.");
+            }
+            
             GameDto game = new(
                 games.Count + 1,
                 newGame.Name,
@@ -69,7 +75,7 @@ public static class GamesEndpoints
         });
 
         // PUT /games/1
-        app.MapPut("games/{id}", (int id, UpdateGameDto updatedGame) =>
+        group.MapPut("/{id}", (int id, UpdateGameDto updatedGame) =>
         {
             var index = games.FindIndex(game => game.Id == id);
             if (index == -1)
@@ -88,7 +94,7 @@ public static class GamesEndpoints
         });
 
         // DELETE /games/1
-        app.MapDelete("games/{id}", (int id) =>
+        group.MapDelete("/{id}", (int id) =>
         {
             var game = games.Find(g => g.Id == id);
             if (game is null)
@@ -99,8 +105,8 @@ public static class GamesEndpoints
             games.RemoveAll(game => game.Id == id);
 
             return Results.NoContent();
-        });
+        }); 
 
-        return app;
+        return group;
     }
 }
