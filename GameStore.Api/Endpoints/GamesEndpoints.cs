@@ -40,7 +40,8 @@ public static class GamesEndpoints
 
     public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("games");
+        var group = app.MapGroup("games")
+                        .WithParameterValidation();
 
         // GET /games
         group.MapGet("/", () => games); // mininal api
@@ -57,11 +58,6 @@ public static class GamesEndpoints
         // POST /games
         group.MapPost("/", (CreateGameDto newGame) =>
         {
-            if (string.IsNullOrEmpty(newGame.Name))
-            {
-                return Results.BadRequest("Name is required.");
-            }
-            
             GameDto game = new(
                 games.Count + 1,
                 newGame.Name,
@@ -72,7 +68,8 @@ public static class GamesEndpoints
             games.Add(game);
 
             return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game);
-        });
+        })
+        .WithParameterValidation();
 
         // PUT /games/1
         group.MapPut("/{id}", (int id, UpdateGameDto updatedGame) =>
@@ -105,7 +102,7 @@ public static class GamesEndpoints
             games.RemoveAll(game => game.Id == id);
 
             return Results.NoContent();
-        }); 
+        });
 
         return group;
     }
