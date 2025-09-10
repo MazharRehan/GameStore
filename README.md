@@ -1,7 +1,7 @@
 # 🎮 GameStore API
 
 A **RESTful Web API** built with **ASP.NET Core 9.0** and **C#**, following clean architecture principles.  
-This project is part of my .NET learning journey, inspired by [Julio Casal’s ASP.NET Core tutorial](https://juliocasal.com/roadmap).
+This project is part of my .NET learning journey, inspired by [Julio Casal’s ASP.NET Core tutorial](https://youtu.be/AhAxLiGC7Pc?si=5sB07q19Ho5aDc3L).
 
 ---
 
