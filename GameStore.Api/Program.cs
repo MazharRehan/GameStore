@@ -11,4 +11,6 @@ var app = builder.Build();
 
 app.MapGamesEndpoints();
 
+app.MigrateDb(); // Extension method to apply migrations and seed data
+
 app.Run();
