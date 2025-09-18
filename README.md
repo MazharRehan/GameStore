@@ -83,15 +83,43 @@ This project is part of my .NET learning journey, inspired by [Julio Casal’s A
 
 ```
 GameStore/
- ├── GameStore.Api/        # ASP.NET Core API
- │    ├── Properties
- │    ├── Data/            # EF Core DbContext
- │    ├── Dtos/            # Data Transfer Objects
- │    ├── Endpoints
- │    ├── Entities/        # Domain models
- │    ├── Controllers/     # API endpoints
- │    ├── Program.cs       # App entry point
- └── README.md
+├── .gitignore
+├── GameStore.Api/
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Data/
+│   │   ├── DataExtensions.cs
+│   │   ├── GameStoreContext.cs
+│   │   └── Migrations/
+│   │       ├── 20250916060359_InitialCreate.cs
+│   │       ├── 20250916060359_InitialCreate.Designer.cs
+│   │       ├── 20250917060523_SeedGenres.cs
+│   │       ├── 20250917060523_SeedGenres.Designer.cs
+│   │       └── GameStoreContextModelSnapshot.cs
+│   ├── Dtos/
+│   │   ├── CreateGameDto.cs
+│   │   ├── GameDetailsDto.cs
+│   │   ├── GameSummaryDto.cs
+│   │   ├── GenreDto.cs
+│   │   └── UpdateGameDto.cs
+│   ├── Endpoints/
+│   │   ├── GamesEndpoints.cs
+│   │   └── GenreEndpoints.cs
+│   ├── Entities/
+│   │   ├── Game.cs
+│   │   └── Genre.cs
+│   ├── games.http
+│   ├── GameStore.Api.csproj
+│   ├── GameStore.db
+│   ├── genres.http
+│   ├── Mapping/
+│   │   ├── GameMapping.cs
+│   │   └── GenreMapping.cs
+│   ├── Program.cs
+│   └── Properties/
+│       └── launchSettings.json
+├── GameStore.sln
+└── README.md
 ```
 
 ---
