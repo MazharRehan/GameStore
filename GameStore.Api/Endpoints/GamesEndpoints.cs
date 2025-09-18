@@ -1,4 +1,7 @@
+using GameStore.Api.Data;
 using GameStore.Api.Dtos;
+using GameStore.Api.Entities;
+using GameStore.Api.Mapping;
 
 namespace GameStore.Api.Endpoints;
 
@@ -6,6 +9,7 @@ public static class GamesEndpoints
 {
     const string GetGameEndpointName = "GetGame";
 
+    // In-memory list of games to simulate a database
     private static readonly List<GameDto> games = [
         new (
         1,
@@ -38,6 +42,7 @@ public static class GamesEndpoints
         new DateOnly(2015, 5, 19))
     ];
 
+    // Extension method to map game-related endpoints
     public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("games")
@@ -47,29 +52,29 @@ public static class GamesEndpoints
         group.MapGet("/", () => games); // mininal api
 
         // GET /games/1  --> get games by id
-        group.MapGet("/{id}", (int id) =>
+        group.MapGet("/{id}", (int id, GameStoreContext dbContext) =>
         {
-            GameDto? game = games.Find(game => game.Id == id);
+            Game? game = dbContext.Games.Find(id);
 
             return game is null ? Results.NotFound() : Results.Ok(game);
         })
         .WithName(GetGameEndpointName);
 
         // POST /games
-        group.MapPost("/", (CreateGameDto newGame) =>
+        group.MapPost("/", (CreateGameDto newGame, GameStoreContext dbContext) =>
         {
-            GameDto game = new(
-                games.Count + 1,
-                newGame.Name,
-                newGame.Genre,
-                newGame.Price,
-                newGame.ReleaseDate);
+            Game game = newGame.ToEntity();
+            game.Genre = dbContext.Genres.Find(newGame.GenreId);
 
-            games.Add(game);
 
-            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game);
-        })
-        .WithParameterValidation();
+            dbContext.Games.Add(game);
+            dbContext.SaveChanges(); // Commit the changes to the database
+
+            return Results.CreatedAtRoute(
+                GetGameEndpointName,
+                new { id = game.Id },
+                game.ToDto());
+        });
 
         // PUT /games/1
         group.MapPut("/{id}", (int id, UpdateGameDto updatedGame) =>
