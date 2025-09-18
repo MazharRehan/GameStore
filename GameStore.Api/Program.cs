@@ -10,7 +10,8 @@ builder.Services.AddSqlite<GameStoreContext>(connString);
 var app = builder.Build();
 
 app.MapGamesEndpoints();
+app.MapGenresEndpoints();
 
-app.MigrateDb(); // Extension method to apply migrations and seed data
+await app.MigrateDbAsync(); // Extension method to apply migrations and seed data
 
 app.Run();

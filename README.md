@@ -48,20 +48,21 @@ This project is part of my .NET learning journey, inspired by [Julio Casal’s A
 3. Apply migrations and seed the database:
 
    ```bash
+   cd .\GameStore.Api\
    dotnet ef database update
    ```
 
 4. Run the project:
 
    ```bash
-   dotnet run --project GameStore.Api
+   dotnet run
    ```
 
 5. The API will be available at:
 
    ```
-   https://localhost:5001
-   http://localhost:5000
+   http://localhost:5181
+   https://localhost:7045
    ```
 
 ---
@@ -83,10 +84,12 @@ This project is part of my .NET learning journey, inspired by [Julio Casal’s A
 ```
 GameStore/
  ├── GameStore.Api/        # ASP.NET Core API
- │    ├── Controllers/     # API endpoints
- │    ├── Dtos/            # Data Transfer Objects
- │    ├── Entities/        # Domain models
+ │    ├── Properties
  │    ├── Data/            # EF Core DbContext
+ │    ├── Dtos/            # Data Transfer Objects
+ │    ├── Endpoints
+ │    ├── Entities/        # Domain models
+ │    ├── Controllers/     # API endpoints
  │    ├── Program.cs       # App entry point
  └── README.md
 ```
