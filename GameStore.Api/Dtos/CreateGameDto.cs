@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.Api.Dtos;
 
+// Record types are immutable and provide built-in value-based equality.
 // This record represents the data required to create a new game
 public record class CreateGameDto(
     [Required][StringLength(50)] string Name,

@@ -9,7 +9,8 @@ public class Game
 
     public int GenreId { get; set; }
 
-    public Genre? Genre { get; set; }
+    // Genre means the category of the game, e.g., Action, Adventure, RPG
+    public Genre? Genre { get; set; } // ? indicates that this property can be null
     public decimal Price { get; set; }
     public DateOnly ReleaseDate { get; set; }
 }
